@@ -2,7 +2,6 @@ import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdIn;
-
 import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Arrays;
@@ -77,7 +76,9 @@ public class SAP {
         // if both queue has no element, there's no ancestor
         if (size == 0) {
             if (qW.size() == 0) return -1;
-            else return bfsW();
+            else {
+                return bfsW();
+            }
         } else {
             for (int i = 0; i < size; i++) {
                 int v = qV.dequeue();

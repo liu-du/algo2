@@ -1,6 +1,6 @@
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
-
+import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SET;
@@ -9,7 +9,8 @@ import edu.princeton.cs.algs4.SET;
 public class WordNet {
 
     private Digraph rootedDAG;
-    private RedBlackBST<String, Integer> lookupTable = new RedBlackBST<>();
+    private RedBlackBST<String, Stack<Integer>> lookupNoun = new RedBlackBST<>();
+    private RedBlackBST<Integer, String> lookupInt = new RedBlackBST<>();
     private boolean cycle = false;
     private boolean hasRoot = false;
     private int root;
@@ -18,18 +19,25 @@ public class WordNet {
     public WordNet(String synsets, String hypernyms) {
         if (synsets == null | hypernyms == null) throw new IllegalArgumentException("null arguments.");
 
-//        File synfile = new File(synsets);
         In synIn = new In(synsets);
-
         int V = 0;
+
         // populate lookup table
         while (synIn.hasNextLine()) {
             String[] line = synIn.readLine().split(",");
             int value = Integer.parseInt(line[0]);
             String[] keys = line[1].split(" ");
 
+            lookupInt.put(value, line[1]);
+
             for (String key : keys) {
-                lookupTable.put(key, value);
+                if (lookupNoun.contains(key)) {
+                    lookupNoun.get(key).push(value);
+                } else {
+                    Stack<Integer> tmp = new Stack<>();
+                    tmp.push(value);
+                    lookupNoun.put(key, tmp);
+                }
             }
 
             // record the last value, V
@@ -38,8 +46,6 @@ public class WordNet {
 
         // initialize empty graph
         rootedDAG = new Digraph(V);
-
-//        File hypfile = new File(hypernyms);
         In hypIn = new In(hypernyms);
 
         while (hypIn.hasNextLine()) {
@@ -53,7 +59,7 @@ public class WordNet {
     }
 
     public Iterable<String> nouns() {
-        return lookupTable.keys();
+        return lookupNoun.keys();
     }
 
     // this method and detectCycle is a digraph detect cycle algorithm
@@ -86,30 +92,35 @@ public class WordNet {
                 if (!marked[w])
                     detectCycle(marked, w, v, path);
                     // if a neighbor is marked and not the immediate previous visits and in the same component, there's a cycle
-                else if (w != before_v && path.contains(w)) {
+                else if (w != before_v && path.contains(w))
                     cycle = true;
-                }
             }
         }
         path.delete(v);
     }
 
     public boolean isNoun(String word) {
-        return lookupTable.contains(word);
+        return lookupNoun.contains(word);
     }
 
     public int distance(String nounA, String nounB) {
         if (!isNoun(nounA) | !isNoun(nounB)) throw new IllegalArgumentException("not a wordnet noun.");
-        int a = lookupTable.get(nounA);
-        int b = lookupTable.get(nounB);
+        Iterable<Integer> a = lookupNoun.get(nounA);
+        Iterable<Integer> b = lookupNoun.get(nounB);
 
-        return 0;
+        SAP sap = new SAP(rootedDAG);
+        return sap.length(a, b);
     }
 
     public String sap(String nounA, String nounB) {
         if (!isNoun(nounA) | !isNoun(nounB)) throw new IllegalArgumentException("not a wordnet noun.");
+        Iterable<Integer> a = lookupNoun.get(nounA);
+        Iterable<Integer> b = lookupNoun.get(nounB);
 
-        return "hfa";
+        SAP sap = new SAP(rootedDAG);
+        int ans = sap.ancestor(a, b);
+
+        return lookupInt.get(ans);
     }
 
     public static void main(String[] args) {
@@ -119,5 +130,9 @@ public class WordNet {
         StdOut.println(wn.isNoun("1820s"));
         StdOut.println(wn.root);
 
+        StdOut.println(wn.distance("white_marlin", "mileage"));
+        StdOut.println(wn.distance("Black_Plague", "black_marlin"));
+        StdOut.println(wn.distance("American_water_spaniel", "histology"));
+        StdOut.println(wn.distance("Brown_Swiss", "barrel_roll"));
     }
 }
