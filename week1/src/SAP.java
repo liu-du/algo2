@@ -17,9 +17,10 @@ public class SAP {
     private int[] edgeToW;
     private int countV;
     private int countW;
+    private int bestSoFar;
+    private int foundOne;
     private Queue<Integer> qV;
     private Queue<Integer> qW;
-
 
 
     public SAP(Digraph g) {
@@ -36,7 +37,10 @@ public class SAP {
         distToW = new int[g.V()];
         edgeToV = new int[g.V()];
         edgeToW = new int[g.V()];
+        bestSoFar = Integer.MAX_VALUE;
+        foundOne = -1;
     }
+
     public int length(int v, int w) {
         return length(Arrays.asList(v), Arrays.asList(w));
     }
@@ -57,6 +61,7 @@ public class SAP {
 
         // reset instance variable
         init();
+
         // initialize V
         countV = 0;
         qV = new Queue<>();
@@ -68,54 +73,71 @@ public class SAP {
         for (int ww : w) qW.enqueue(ww);
 
         // lockstep bfs
-        return bfsV();
+        bfsV();
+        return foundOne;
     }
 
-    private int bfsV() {
+    private void bfsV() {
         int size = qV.size();
         // if both queue has no element, there's no ancestor
         if (size == 0) {
-            if (qW.size() == 0) return -1;
-            else {
-                return bfsW();
-            }
+            if (qW.size() != 0) bfsW();
         } else {
             for (int i = 0; i < size; i++) {
                 int v = qV.dequeue();
-                markedV[v] = true;
-                distToV[v] = countV;
-                // if v is marked in markedW, found SAP ancestor
-                if (markedW[v]) return v;
-                for (int w : g.adj(v)) {
-                    qV.enqueue(w);
-                    edgeToV[w] = v;
+                if (!markedV[v]) {
+                    markedV[v] = true;
+                    distToV[v] = countV;
+                    // if v is marked in markedW, found SAP ancestor
+                    if (markedW[v]) {
+                        if (foundOne == -1) {
+                            foundOne = v;
+                            bestSoFar = distToV[v] + distToW[v];
+                        } else if (distToW[v] + distToV[v] < bestSoFar) {
+                            foundOne = v;
+                            return; // return early
+                        }
+                    }
+                    for (int w : g.adj(v)) {
+                        qV.enqueue(w);
+                        edgeToV[w] = v;
+                    }
                 }
             }
             countV++;
-            return bfsW();
+            bfsW();
         }
     }
 
-    private int bfsW() {
+    private void bfsW() {
         int size = qW.size();
         // if both queue has no element, there's no ancestor
         if (size == 0) {
-            if (qV.size() == 0) return -1;
-            else return bfsV();
+            if (qV.size() != 0) bfsV();
         } else {
             for (int i = 0; i < size; i++) {
                 int v = qW.dequeue();
-                markedW[v] = true;
-                distToW[v] = countW;
-                // if v is marked in markedV, found SAP ancestor
-                if (markedV[v]) return v;
-                for (int w : g.adj(v)) {
-                    qW.enqueue(w);
-                    edgeToW[w] = v;
+                if (!markedW[v]) {
+                    markedW[v] = true;
+                    distToW[v] = countW;
+                    // if v is marked in markedV, found SAP ancestor
+                    if (markedV[v]) {
+                        if (foundOne == -1) {
+                            foundOne = v;
+                            bestSoFar = distToV[v] + distToW[v];
+                        } else if (distToW[v] + distToV[v] < bestSoFar) {
+                            foundOne = v;
+                            return;
+                        }
+                    }
+                    for (int w : g.adj(v)) {
+                        qW.enqueue(w);
+                        edgeToW[w] = v;
+                    }
                 }
             }
             countW++;
-            return bfsV();
+            bfsV();
         }
     }
 
@@ -129,6 +151,7 @@ public class SAP {
             int length   = sap.length(v, w);
             int ancestor = sap.ancestor(v, w);
             StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
+//            StdOut.printf("ancestor = %d\n", ancestor);
         }
     }
 }
