@@ -50,14 +50,21 @@ public class SAP {
     }
 
     public int length(Iterable<Integer> v, Iterable<Integer> w) {
-        if (v == null || w == null) throw new IllegalArgumentException("null v or w");
         int ans = ancestor(v, w);
         if (ans == -1) return -1;
         return distToV[ans] + distToW[ans];
     }
 
+    private void validateInput(Iterable<Integer> v) {
+        for (int i : v) {
+            if (i < 0 || i >= g.V()) throw new IllegalArgumentException("invalid input");
+        }
+    }
+
     public int ancestor(Iterable<Integer> v, Iterable<Integer> w) {
         if (v == null || w == null) throw new IllegalArgumentException("null v or w");
+        validateInput(v);
+        validateInput(w);
 
         // reset instance variable
         init();
@@ -83,6 +90,8 @@ public class SAP {
         if (size == 0) {
             if (qW.size() != 0) bfsW();
         } else {
+            int currentBestAns = -1;
+            int currentBestDist = Integer.MAX_VALUE;
             for (int i = 0; i < size; i++) {
                 int v = qV.dequeue();
                 if (!markedV[v]) {
@@ -90,18 +99,25 @@ public class SAP {
                     distToV[v] = countV;
                     // if v is marked in markedW, found SAP ancestor
                     if (markedW[v]) {
-                        if (foundOne == -1) {
-                            foundOne = v;
-                            bestSoFar = distToV[v] + distToW[v];
-                        } else if (distToW[v] + distToV[v] < bestSoFar) {
-                            foundOne = v;
-                            return; // return early
+                        int dist = distToV[v] + distToW[v];
+                        if (dist < currentBestDist) {
+                            currentBestAns = v;
+                            currentBestDist = dist;
                         }
                     }
                     for (int w : g.adj(v)) {
                         qV.enqueue(w);
                         edgeToV[w] = v;
                     }
+                }
+            }
+            if (currentBestAns != -1) {
+                if (foundOne == -1) {
+                    foundOne = currentBestAns;
+                    bestSoFar = distToV[currentBestAns] + distToW[currentBestAns];
+                } else if (currentBestDist < bestSoFar) {
+                    foundOne = currentBestAns;
+                    return; // return early
                 }
             }
             countV++;
@@ -115,6 +131,8 @@ public class SAP {
         if (size == 0) {
             if (qV.size() != 0) bfsV();
         } else {
+            int currentBestAns = -1;
+            int currentBestDist = Integer.MAX_VALUE;
             for (int i = 0; i < size; i++) {
                 int v = qW.dequeue();
                 if (!markedW[v]) {
@@ -122,12 +140,10 @@ public class SAP {
                     distToW[v] = countW;
                     // if v is marked in markedV, found SAP ancestor
                     if (markedV[v]) {
-                        if (foundOne == -1) {
-                            foundOne = v;
-                            bestSoFar = distToV[v] + distToW[v];
-                        } else if (distToW[v] + distToV[v] < bestSoFar) {
-                            foundOne = v;
-                            return;
+                        int dist = distToV[v] + distToW[v];
+                        if (dist < currentBestDist) {
+                            currentBestAns = v;
+                            currentBestDist = dist;
                         }
                     }
                     for (int w : g.adj(v)) {
@@ -136,6 +152,18 @@ public class SAP {
                     }
                 }
             }
+
+            if (currentBestAns != -1) {
+                if (foundOne == -1) {
+                    foundOne = currentBestAns;
+                    bestSoFar = distToV[currentBestAns] + distToW[currentBestAns];
+                } else if (currentBestDist < bestSoFar) {
+                    foundOne = currentBestAns;
+                    return;
+                }
+
+            }
+
             countW++;
             bfsV();
         }
