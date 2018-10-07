@@ -9,16 +9,19 @@ public class EdgeWeightedDigraph {
     private int[] indegree;
 
     public EdgeWeightedDigraph(int V) {
-        this.adj = (Bag<DirectedEdge>[]) new Bag[V];
+        if (V < 0) throw new IllegalArgumentException("negative number of vertices.");
         this.V = V;
         this.E = 0;
+        this.indegree = new int[V];
+        this.adj = (Bag<DirectedEdge>[]) new Bag[V];
+        for (int i = 0; i < V; i++)
+            adj[i] = new Bag<>();
     }
 
     public EdgeWeightedDigraph(In in) {
         this(in.readInt());
-        this.E = in.readInt();
-        if (E < 0) throw new IllegalArgumentException("negative number of edges");
-        this.adj = (Bag<DirectedEdge>[]) new Bag[V];
+        int E = in.readInt();
+        if (E < 0) throw new IllegalArgumentException("negative number of edges.");
         for (int i = 0; i < E; i++) {
             int v = validateVertex(in.readInt());
             int w = validateVertex(in.readInt());
@@ -28,7 +31,7 @@ public class EdgeWeightedDigraph {
     }
 
     private int validateVertex(int v) {
-        if (v < 0 || v > this.V) throw new IllegalArgumentException(v + " vs not between 0 and " + this.V);
+        if (v < 0 || v >= V) throw new IllegalArgumentException("vertex " + v + " vs not between 0 and " + (V - 1));
         return v;
     }
 
