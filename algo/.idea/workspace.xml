@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37a138b9-1af5-4cb0-a9fe-d41c2e7ee5dc" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/SP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DijkstraSP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sbt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
@@ -27,6 +27,7 @@
       <change beforePath="$PROJECT_DIR$/src/KosarajuSharirSCC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KosarajuSharirSCC.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/KrushalMST.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KrushalMST.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PrimMST.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PrimMST.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week1/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week1/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week1/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week1/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week1/.idea/sbt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week1/.idea/sbt.xml" afterDir="false" />
@@ -46,15 +47,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Edge.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Edge.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="EdgeWeightedGraph.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/EdgeWeightedGraph.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -121,13 +113,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SP.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SP.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+            <state relative-caret-position="85">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DijkstraSP.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DijkstraSP.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+              <folding>
+                <element signature="e#1109#1110#0" expanded="true" />
+                <element signature="e#1157#1158#0" expanded="true" />
+                <element signature="e#1456#1457#0" expanded="true" />
+                <element signature="e#1512#1513#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -193,14 +200,14 @@
         <option value="$PROJECT_DIR$/src/EdgeWeightedGraph.java" />
         <option value="$PROJECT_DIR$/src/EdgeWeightedDigraph.java" />
         <option value="$PROJECT_DIR$/src/SP.java" />
+        <option value="$PROJECT_DIR$/src/DijkstraSP.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-12" />
-    <option name="y" value="-12" />
-    <option name="width" value="1944" />
-    <option name="height" value="1044" />
+    <option name="x" value="949" />
+    <option name="width" value="980" />
+    <option name="height" value="1031" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -247,7 +254,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.SP">
+  <component name="RunManager" selected="Application.DijkstraSP">
+    <configuration name="DijkstraSP" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DijkstraSP" />
+      <module name="algo" />
+      <option name="PROGRAM_PARAMETERS" value="tinyEWD.txt 0" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+    </configuration>
     <configuration name="DirectedEdge" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DirectedEdge" />
       <module name="algo" />
@@ -261,12 +274,6 @@
     </configuration>
     <configuration name="EdgeWeightedGraph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="EdgeWeightedGraph" />
-      <module name="algo" />
-      <option name="PROGRAM_PARAMETERS" value="edge_weighted_graph_demo.txt" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-    </configuration>
-    <configuration name="PrimMST" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="PrimMST" />
       <module name="algo" />
       <option name="PROGRAM_PARAMETERS" value="edge_weighted_graph_demo.txt" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -320,18 +327,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.EdgeWeightedGraph" />
-      <item itemvalue="Application.PrimMST" />
       <item itemvalue="Application.DirectedEdge" />
       <item itemvalue="Application.EdgeWeightedDigraph" />
       <item itemvalue="Application.SP" />
+      <item itemvalue="Application.DijkstraSP" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DijkstraSP" />
         <item itemvalue="Application.SP" />
         <item itemvalue="Application.EdgeWeightedDigraph" />
         <item itemvalue="Application.EdgeWeightedGraph" />
         <item itemvalue="Application.DirectedEdge" />
-        <item itemvalue="Application.PrimMST" />
       </list>
     </recent_temporary>
   </component>
@@ -378,13 +385,14 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.3298969" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.38487974" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.25945017" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3298969" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -402,7 +410,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.3298969" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
@@ -443,13 +450,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/KosarajuSharirSCC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Bipartite.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -799,10 +799,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DijkstraSP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#1109#1110#0" expanded="true" />
+            <element signature="e#1157#1158#0" expanded="true" />
+            <element signature="e#1456#1457#0" expanded="true" />
+            <element signature="e#1512#1513#0" expanded="true" />
           </folding>
         </state>
       </provider>
