@@ -77,45 +77,149 @@ public class SeamCarver {
         return shortestPath(energy);
     }
 
+    // kind of a brute force implementation
     private int[] shortestPath(double[][] energy) {
         int width = energy[0].length;
         int height = energy.length;
 
-        for (double i: energy[0]) pq.insert(i);
-
         int[][] edgeTo = new int[height][width];
-        int[][] distTo = new int[height][width];
-        boolean[][] marked = new boolean[height][width];
+        double[][] distTo = new double[height][width];
 
-        while (!pq.isEmpty()) {
-            double dist = pq.delMin();
-            for (neigbhor : dist.adj) {
-                if (!marked[j][i]) {
-                    pq.insert(energy[j][i]);
-                    edgeTo[j][i] = dist.edge;
-                    distTo[j][i] = dist + previous_dist;
-                } else if (marked[j][i] && )
+        for (int i = 0; i < width; i++) {
+            distTo[0][i] = energy[0][i];
+        }
+
+        for (int j = 1; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                // leftmost
+                if (i == 0) {
+                    if (distTo[j - 1][i + 1] < distTo[j - 1][i]) {
+                        distTo[j][i] = distTo[j - 1][i + 1] + energy[j][i];
+                        edgeTo[j][i] = i + 1;
+                    } else {
+                        distTo[j][i] = distTo[j - 1][i] + energy[j][i];
+                        edgeTo[j][i] = i;
+                    }
+                // right most
+                } else if (i == width - 1){
+                    if (distTo[j - 1][i] < distTo[j - 1][i - 1]) {
+                        distTo[j][i] = distTo[j - 1][i] + energy[j][i];
+                        edgeTo[j][i] = i;
+                    } else {
+                        distTo[j][i] = distTo[j - 1][i - 1] + energy[j][i];
+                        edgeTo[j][i] = i - 1;
+                    }
+                // middle
+                } else {
+                    // upper right is shortest
+                    if (distTo[j - 1][i + 1] < distTo[j - 1][i] &&
+                            distTo[j - 1][i + 1] < distTo[j - 1][i - 1]) {
+                        distTo[j][i] = distTo[j - 1][i + 1] + energy[j][i];
+                        edgeTo[j][i] = i + 1;
+                    // up middle is shortest
+                    } else if (distTo[j - 1][i] < distTo[j - 1][i + 1] &&
+                            distTo[j - 1][i] < distTo[j - 1][i - 1]) {
+                        distTo[j][i] = distTo[j - 1][i] + energy[j][i];
+                        edgeTo[j][i] = i;
+                    // upper left is shortes
+                    } else {
+                        distTo[j][i] = distTo[j - 1][i - 1] + energy[j][i];
+                        edgeTo[j][i] = i - 1;
+                    }
+                }
             }
-        }
-        
-        int k = Double.POSITIVE_INFINITY;
-        for (int i; i < width; i++) {
-            if (energy[height - 1][i] < k) k = i;
-        }
-
-        int[] out = new int[height];
-        for (int j; j < height; j++) {
-            out[height - j] = edgeTo(j);
         }
 
         return new int[10];
     }
 
+    // kind of a brute force implementation
+    private int[][] shortestPathTest() {
 
+        double[][] energy = new double[height()][width()];
+        for (int j = 0; j < height(); j++) {
+            for (int i = 0; i < width(); i++) {
+                // energy[0] represent energies at the top row
+                energy[j][i] = energy(i, j);
+            }
+        }
+        int width = energy[0].length;
+        int height = energy.length;
 
-    private double[] test(double[][] energy) {
-        return energy[0];
+        int[][] edgeTo = new int[height][width];
+        double[][] distTo = new double[height][width];
+
+        for (int i = 0; i < width; i++) {
+            distTo[0][i] = energy[0][i];
+        }
+
+        for (int j = 1; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                // leftmost
+                if (i == 0) {
+                    if (distTo[j - 1][i + 1] < distTo[j - 1][i]) {
+                        distTo[j][i] = distTo[j - 1][i + 1] + energy[j][i];
+                        edgeTo[j][i] = i + 1;
+                    } else {
+                        distTo[j][i] = distTo[j - 1][i] + energy[j][i];
+                        edgeTo[j][i] = i;
+                    }
+                    // right most
+                } else if (i == width - 1){
+                    if (distTo[j - 1][i] < distTo[j - 1][i - 1]) {
+                        distTo[j][i] = distTo[j - 1][i] + energy[j][i];
+                        edgeTo[j][i] = i;
+                    } else {
+                        distTo[j][i] = distTo[j - 1][i - 1] + energy[j][i];
+                        edgeTo[j][i] = i - 1;
+                    }
+                    // middle
+                } else {
+                    // upper right is shortest
+                    if (distTo[j - 1][i + 1] < distTo[j - 1][i] &&
+                            distTo[j - 1][i + 1] < distTo[j - 1][i - 1]) {
+                        distTo[j][i] = distTo[j - 1][i + 1] + energy[j][i];
+                        edgeTo[j][i] = i + 1;
+                        // up middle is shortest
+                    } else if (distTo[j - 1][i] < distTo[j - 1][i + 1] &&
+                            distTo[j - 1][i] < distTo[j - 1][i - 1]) {
+                        distTo[j][i] = distTo[j - 1][i] + energy[j][i];
+                        edgeTo[j][i] = i;
+                        // upper left is shortes
+                    } else {
+                        distTo[j][i] = distTo[j - 1][i - 1] + energy[j][i];
+                        edgeTo[j][i] = i - 1;
+                    }
+                }
+            }
+        }
+
+        return edgeTo;
     }
+
+//        for (double i: energy[0]) pq.insert(i);
+//    boolean[][] marked = new boolean[height][width];
+//
+//        while (!pq.isEmpty()) {
+//        double dist = pq.delMin();
+//        for (neigbhor : dist.adj) {
+//            if (!marked[j][i]) {
+//                pq.insert(energy[j][i]);
+//                edgeTo[j][i] = dist.edge;
+//                distTo[j][i] = dist + previous_dist;
+//            } else if (marked[j][i] && )
+//        }
+//    }
+//
+//    int k = Double.POSITIVE_INFINITY;
+//        for (int i; i < width; i++) {
+//        if (energy[height - 1][i] < k) k = i;
+//    }
+//
+//    int[] out = new int[height];
+//        for (int j; j < height; j++) {
+//        out[height - j] = edgeTo(j);
+//    }
 
 
     public void removeHorizontalSeam(int[] seam) {
@@ -176,20 +280,25 @@ public class SeamCarver {
            StdOut.println();
        }
 
-       StdOut.println(picture);
+//       StdOut.println(picture);
+//
+//       sc.removeHorizontalSeam(new int[] {0,0,0,0});
+//       sc.removeVerticalSeam(new int[] {3,3,3,3,3});
+//
+//       StdOut.println(sc.picture());
 
-       sc.removeHorizontalSeam(new int[] {0,0,0,0});
-       sc.removeVerticalSeam(new int[] {3,3,3,3,3});
+        StdOut.println();
+        StdOut.println();
 
-       StdOut.println(sc.picture());
+       int[][] test = sc.shortestPathTest();
 
-//       double[] a1 = new double[] {1d,2d,3d};
-//       double[] a2 = new double[] {4d,5d,6d};
-       double[][] a = new double[2][3] ;
-//               {a1, a2};
+        for (int j = 0; j < sc.height(); j++) {
+            for (int i = 0; i < sc.width(); i++) {
+                StdOut.print(String.format("%s ", test[j][i]));
+            }
+            StdOut.println();
+        }
 
 
-       for (double i : sc.test(a))
-           StdOut.println(i);
     }
 }
