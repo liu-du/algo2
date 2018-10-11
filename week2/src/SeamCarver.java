@@ -1,11 +1,9 @@
-import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.Picture;
 import edu.princeton.cs.algs4.StdOut;
 
 public class SeamCarver {
 
     private Picture p;
-    private MinPQ<Double> pq;
 
     public SeamCarver(Picture picture) {
         if (picture == null) throw new IllegalArgumentException("null arg");
@@ -69,7 +67,7 @@ public class SeamCarver {
     public int[] findHorizontalSeam() {
         double[][] energy = new double[width()][height()];
         for (int i = 0; i < width(); i++) {
-            for (int j = 0; i < height(); j++) {
+            for (int j = 0; j < height(); j++) {
                 // transpose
                 energy[i][j] = energy(i, j);
             }
@@ -79,6 +77,7 @@ public class SeamCarver {
 
     // kind of a brute force implementation
     private int[] shortestPath(double[][] energy) {
+
         int width = energy[0].length;
         int height = energy.length;
 
@@ -121,7 +120,7 @@ public class SeamCarver {
                             distTo[j - 1][i] < distTo[j - 1][i - 1]) {
                         distTo[j][i] = distTo[j - 1][i] + energy[j][i];
                         edgeTo[j][i] = i;
-                    // upper left is shortes
+                    // upper left is shortest
                     } else {
                         distTo[j][i] = distTo[j - 1][i - 1] + energy[j][i];
                         edgeTo[j][i] = i - 1;
@@ -130,7 +129,21 @@ public class SeamCarver {
             }
         }
 
-        return new int[10];
+        double currentMin = Double.POSITIVE_INFINITY;
+        int[] out = new int[height];
+        out[height - 1] = 0;
+        for (int j = 0; j < width; j++) {
+            if (distTo[height - 1][j] < currentMin) {
+                currentMin = distTo[height - 1][j];
+                out[height - 1] = j;
+            }
+        }
+
+        for (int i = height - 2; i >= 0; i--) {
+            out[i] = edgeTo[i + 1][out[i + 1]];
+        }
+
+        return out;
     }
 
     // kind of a brute force implementation
@@ -196,30 +209,6 @@ public class SeamCarver {
 
         return edgeTo;
     }
-
-//        for (double i: energy[0]) pq.insert(i);
-//    boolean[][] marked = new boolean[height][width];
-//
-//        while (!pq.isEmpty()) {
-//        double dist = pq.delMin();
-//        for (neigbhor : dist.adj) {
-//            if (!marked[j][i]) {
-//                pq.insert(energy[j][i]);
-//                edgeTo[j][i] = dist.edge;
-//                distTo[j][i] = dist + previous_dist;
-//            } else if (marked[j][i] && )
-//        }
-//    }
-//
-//    int k = Double.POSITIVE_INFINITY;
-//        for (int i; i < width; i++) {
-//        if (energy[height - 1][i] < k) k = i;
-//    }
-//
-//    int[] out = new int[height];
-//        for (int j; j < height; j++) {
-//        out[height - j] = edgeTo(j);
-//    }
 
 
     public void removeHorizontalSeam(int[] seam) {
@@ -299,6 +288,25 @@ public class SeamCarver {
             StdOut.println();
         }
 
+//        StdOut.println();
+//        int[] test2 = sc.shortestPath();
+//
+//        for (int i = 0; i < test2.length; i++) {
+//            StdOut.print(String.format("%s ", test2[i]));
+//        }
 
+        StdOut.println();
+        int[] test3 = sc.findVerticalSeam();
+
+        for (int i = 0; i < test3.length; i++) {
+            StdOut.print(String.format("%s ", test3[i]));
+        }
+
+        StdOut.println();
+        int[] test4 = sc.findHorizontalSeam();
+
+        for (int i = 0; i < test4.length; i++) {
+            StdOut.print(String.format("%s ", test4[i]));
+        }
     }
 }
