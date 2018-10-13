@@ -36,6 +36,37 @@
       <change beforePath="$PROJECT_DIR$/../week1/src/SAP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week1/src/SAP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week1/src/WordNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week1/src/WordNet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week1/week1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../week1/week1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/.idea/sbt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/.idea/sbt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/10x10.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/10x10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/10x12.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/10x12.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/12x10.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/12x10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/1x1.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/1x1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/1x8.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/1x8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/3x4.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/3x4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/3x7.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/3x7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/4x6.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/4x6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/5x6.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/5x6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/6x5.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/6x5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/7x10.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/7x10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/7x3.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/7x3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/8x1.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/8x1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/HJocean.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/HJocean.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/HJoceanTransposed.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/HJoceanTransposed.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/PrintEnergy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/PrintEnergy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/PrintSeams.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/PrintSeams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/ResizeDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/ResizeDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/SCUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/SCUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/SeamCarver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/SeamCarver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/ShowEnergy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/ShowEnergy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/ShowSeams.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/ShowSeams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/chameleon.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/chameleon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/diagonals.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/diagonals.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/src/stripes.png" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/src/stripes.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week2/week2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../week2/week2.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -87,7 +118,7 @@
         <entry file="file://$PROJECT_DIR$/src/DirectedEdge.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -95,8 +126,8 @@
       <file leaf-file-name="EdgeWeightedDigraph.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/EdgeWeightedDigraph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="272">
+              <caret line="16" column="11" lean-forward="true" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -128,8 +159,8 @@
       <file leaf-file-name="DijkstraSP.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DijkstraSP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+            <state relative-caret-position="289">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
         </entry>
@@ -209,6 +240,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -217,12 +249,16 @@
               <item name="algo" type="b2602c69:ProjectViewProjectNode" />
               <item name="algo" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="algo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="algo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -379,8 +415,8 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.25945017" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3298969" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -390,15 +426,15 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39862543" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.3298969" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.3298969" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
@@ -406,12 +442,12 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3281787" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14754099" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -421,7 +457,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3298969" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -745,34 +781,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DirectedEdge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/EdgeWeightedGraph.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="44" selection-start-line="44" selection-end-line="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edge_weighted_graph_demo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/EdgeWeightedDigraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -796,10 +808,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/edge_weighted_graph_demo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DirectedEdge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/EdgeWeightedDigraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="11" lean-forward="true" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/DijkstraSP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+        <state relative-caret-position="289">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>
