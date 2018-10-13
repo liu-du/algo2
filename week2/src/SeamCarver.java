@@ -1,4 +1,4 @@
-import edu.princeton.cs.algs4.MinPQ;
+import edu.princeton.cs.algs4.IndexMinPQ;
 import edu.princeton.cs.algs4.Picture;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -79,7 +79,9 @@ public class SeamCarver {
                 // energy[0] represent energies at the top row
                 energy[j][i] = energy(i, j);
 
-        return shortestPathNew(energy);
+//        ironically, my brute force runs faster...
+        return shortestPathBruteForce(energy);
+//        return shortestPathDijkstra(energy);
     }
 
     public int[] findHorizontalSeam() {
@@ -90,14 +92,15 @@ public class SeamCarver {
                 // transpose
                 energy[i][j] = energy(i, j);
 
-        return shortestPathNew(energy);
+//        ironically, my brute force runs faster...
+        return shortestPathBruteForce(energy);
+//        return shortestPathDijkstra(energy);
     }
 
-    private int[] shortestPathNew(double[][] energy) {
+    private int[] shortestPathDijkstra(double[][] energy) {
 
         int width = energy[0].length;
         int height = energy.length;
-
         int[][] edgeTo = new int[height][width];
 
         // initialize distTo to infinity
@@ -107,90 +110,63 @@ public class SeamCarver {
                 distTo[j][i] = Double.POSITIVE_INFINITY;
 
         // Initialize a priority queue
-        MinPQ<Node> pq = new MinPQ<>();
-        for (int i = 0; i < width; i++) pq.insert(new Node(i, 0, energy[0][i]));
-
+        IndexMinPQ<Node> pq = new IndexMinPQ<>(width * height);
+        for (int i = 0; i < width; i++) pq.insert(i, new Node(i, 0, energy[0][i]));
         int[] out = new int[height];
 
         while (!pq.isEmpty()) {
             // get distance and coordinates
-            Node node = pq.delMin();
-            int y = node.y, x = node.x;
-            int y_down = y + 1;
+            Node node = pq.minKey();
+            int minIndex = pq.minIndex();
+            pq.delete(minIndex);
 
-            // return if min is in the bottom row - found shortest path
-            if (y == height - 1) {
-                out[height - 1] = x;
+//            StdOut.println("MIN> x " + node.x + " y " + node.y + " energy " + node.energy);
+//            Iterator<Integer> iter = pq.iterator();
+//            while (iter.hasNext()) {
+//                int key = iter.next();
+//                StdOut.println("     x " + pq.keyOf(key).x + " y " + pq.keyOf(key).y + " energy " + pq.keyOf(key).energy);
+//            }
+
+            // return early if min is in the bottom row - found shortest path
+            if (node.y == height - 1) {
+                out[height - 1] = node.x;
                 break;
             }
+            relaxNode(node, energy, distTo, edgeTo, pq, width);
+        }
 
-            // leftmost case
-            if (x == 0) {
-                int x_right = x + 1;
-                // the cell down below has shorter path
-                double new_dist = energy[y_down][x] + node.energy;
-                if (new_dist < distTo[y_down][x]) {
-                    pq.insert(new Node(x, y_down, new_dist));
-                    distTo[y_down][x] = new_dist;
-                    edgeTo[y_down][x] = x;
-                }
-                // the cell down right is not marked and has lesser energy
-                new_dist = energy[y_down][x_right] + node.energy;
-                if (new_dist < distTo[y_down][x_right]) {
-                    pq.insert(new Node(x_right, y_down, new_dist));
-                    distTo[y_down][x_right] = new_dist;
-                    edgeTo[y_down][x_right] = x;
-                }
-            // rightmost case
-            } else if (x == width - 1) {
-                int x_left = x - 1;
-                // the cell down right has shorter path
-                double new_dist = energy[y_down][x_left] + node.energy;
-                if (new_dist < distTo[y_down][x_left]) {
-                    pq.insert(new Node(x_left, y_down, new_dist));
-                    distTo[y_down][x_left] = new_dist;
-                    edgeTo[y_down][x_left] = x;
-                }
-                new_dist = energy[y_down][x] + node.energy;
-                if (new_dist < distTo[y_down][x]) {
-                    pq.insert(new Node(x, y_down, new_dist));
-                    distTo[y_down][x] = new_dist;
-                    edgeTo[y_down][x] = x;
-                }
-            // middle case
-            } else {
-                int x_left = x - 1;
-                int x_right = x + 1;
-                // the cell down left has shorter path
-                double new_dist = energy[y_down][x_left] + node.energy;
-                if (new_dist < distTo[y_down][x_left]) {
-                    pq.insert(new Node(x_left, y_down, new_dist));
-                    distTo[y_down][x_left] = new_dist;
-                    edgeTo[y_down][x_left] = x;
-                }
-                // the cell down below has shorter path
-                new_dist = energy[y_down][x] + node.energy;
-                if (new_dist < distTo[y_down][x]) {
-                    pq.insert(new Node(x, y_down, new_dist));
-                    distTo[y_down][x] = new_dist;
-                    edgeTo[y_down][x] = x;
-                }
-                // the cell down right has shorter path
-                new_dist = energy[y_down][x_right] + node.energy;
-                if (new_dist < distTo[y_down][x_right]) {
-                    pq.insert(new Node(x_right, y_down, new_dist));
-                    distTo[y_down][x_right] = new_dist;
-                    edgeTo[y_down][x_right] = x;
-                }
-            }
-        }
-        for (int i = height - 2; i >= 0; i--) {
-            out[i] = edgeTo[i + 1][out[i + 1]];
-        }
+        for (int i = height - 2; i >= 0; i--) out[i] = edgeTo[i + 1][out[i + 1]];
         return out;
     }
+
+    private void relaxNode(Node node, double[][] energy, double[][] distTo, int[][] edgeTo, IndexMinPQ<Node> pq, int width) {
+        if (node.x == 0) {
+            relax(node.x, node, energy, distTo, edgeTo, pq, width);
+            relax(node.x + 1, node, energy, distTo, edgeTo, pq, width);
+        } else if (node.x == width - 1) {
+            relax(node.x - 1, node, energy, distTo, edgeTo, pq, width);
+            relax(node.x, node, energy, distTo, edgeTo, pq, width);
+        } else {
+            relax(node.x - 1, node, energy, distTo, edgeTo, pq, width);
+            relax(node.x, node, energy, distTo, edgeTo, pq, width);
+            relax(node.x + 1, node, energy, distTo, edgeTo, pq, width);
+        }
+    }
+
+    private void relax(int x, Node node, double[][] energy, double[][] distTo, int[][] edgeTo, IndexMinPQ<Node> pq, int width) {
+        int y_down = node.y + 1;
+        double new_dist = energy[y_down][x] + node.energy;
+        if (new_dist < distTo[y_down][x]) {
+            int key = y_down * width + x;
+            if (pq.contains(key)) pq.decreaseKey(key, new Node(x, y_down, new_dist));
+            else pq.insert(key, new Node(x, y_down, new_dist));
+            distTo[y_down][x] = new_dist;
+            edgeTo[y_down][x] = node.x;
+        }
+    }
+
     // kind of a brute force implementation
-    private int[] shortestPath(double[][] energy) {
+    private int[] shortestPathBruteForce(double[][] energy) {
 
         int width = energy[0].length;
         int height = energy.length;
@@ -203,40 +179,41 @@ public class SeamCarver {
         }
 
         for (int j = 1; j < height; j++) {
+            int j_up = j - 1;
             for (int i = 0; i < width; i++) {
                 // leftmost
                 if (i == 0) {
-                    if (distTo[j - 1][i + 1] < distTo[j - 1][i]) {
-                        distTo[j][i] = distTo[j - 1][i + 1] + energy[j][i];
+                    if (distTo[j_up][i + 1] < distTo[j_up][i]) {
+                        distTo[j][i] = distTo[j_up][i + 1] + energy[j][i];
                         edgeTo[j][i] = i + 1;
                     } else {
-                        distTo[j][i] = distTo[j - 1][i] + energy[j][i];
+                        distTo[j][i] = distTo[j_up][i] + energy[j][i];
                         edgeTo[j][i] = i;
                     }
                 // rightmost
                 } else if (i == width - 1){
-                    if (distTo[j - 1][i] < distTo[j - 1][i - 1]) {
-                        distTo[j][i] = distTo[j - 1][i] + energy[j][i];
+                    if (distTo[j_up][i] < distTo[j_up][i - 1]) {
+                        distTo[j][i] = distTo[j_up][i] + energy[j][i];
                         edgeTo[j][i] = i;
                     } else {
-                        distTo[j][i] = distTo[j - 1][i - 1] + energy[j][i];
+                        distTo[j][i] = distTo[j_up][i - 1] + energy[j][i];
                         edgeTo[j][i] = i - 1;
                     }
                 // middle
                 } else {
                     // upper right is shortest
-                    if (distTo[j - 1][i - 1] <= distTo[j - 1][i] &&
-                            distTo[j - 1][i - 1] < distTo[j - 1][i + 1]) {
-                        distTo[j][i] = distTo[j - 1][i - 1] + energy[j][i];
+                    if (distTo[j_up][i - 1] <= distTo[j_up][i] &&
+                            distTo[j_up][i - 1] < distTo[j_up][i + 1]) {
+                        distTo[j][i] = distTo[j_up][i - 1] + energy[j][i];
                         edgeTo[j][i] = i - 1;
                     // up middle is shortest
-                    } else if (distTo[j - 1][i] <= distTo[j - 1][i + 1] &&
-                            distTo[j - 1][i] <= distTo[j - 1][i - 1]) {
-                        distTo[j][i] = distTo[j - 1][i] + energy[j][i];
+                    } else if (distTo[j_up][i] <= distTo[j_up][i + 1] &&
+                            distTo[j_up][i] <= distTo[j_up][i - 1]) {
+                        distTo[j][i] = distTo[j_up][i] + energy[j][i];
                         edgeTo[j][i] = i;
                     // upper left is shortest
                     } else {
-                        distTo[j][i] = distTo[j - 1][i + 1] + energy[j][i];
+                        distTo[j][i] = distTo[j_up][i + 1] + energy[j][i];
                         edgeTo[j][i] = i + 1;
                     }
                 }
