@@ -56,8 +56,8 @@ public class SAP {
     }
 
     private void validateInput(Iterable<Integer> v) {
-        for (int i : v) {
-            if (i < 0 || i >= g.V()) throw new IllegalArgumentException("invalid input");
+        for (Integer i : v) {
+            if (i == null || i < 0 || i >= g.V()) throw new IllegalArgumentException("invalid input");
         }
     }
 

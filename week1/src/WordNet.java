@@ -14,6 +14,7 @@ public class WordNet {
     private boolean cycle = false;
     private boolean hasRoot = false;
     private int root;
+    private SAP sap;
 
 
     public WordNet(String synsets, String hypernyms) {
@@ -56,6 +57,7 @@ public class WordNet {
         }
 
         if (hasCycle()) throw new IllegalArgumentException("not a DAG");
+        sap = new SAP(rootedDAG);
     }
 
     public Iterable<String> nouns() {
@@ -107,8 +109,6 @@ public class WordNet {
         if (!isNoun(nounA) | !isNoun(nounB)) throw new IllegalArgumentException("not a wordnet noun.");
         Iterable<Integer> a = lookupNoun.get(nounA);
         Iterable<Integer> b = lookupNoun.get(nounB);
-
-        SAP sap = new SAP(rootedDAG);
         return sap.length(a, b);
     }
 
@@ -116,10 +116,7 @@ public class WordNet {
         if (!isNoun(nounA) | !isNoun(nounB)) throw new IllegalArgumentException("not a wordnet noun.");
         Iterable<Integer> a = lookupNoun.get(nounA);
         Iterable<Integer> b = lookupNoun.get(nounB);
-
-        SAP sap = new SAP(rootedDAG);
         int ans = sap.ancestor(a, b);
-
         return lookupInt.get(ans);
     }
 
