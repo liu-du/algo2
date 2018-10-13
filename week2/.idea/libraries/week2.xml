@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="week2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/week2/seam-submit.zip!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/week2/seam.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

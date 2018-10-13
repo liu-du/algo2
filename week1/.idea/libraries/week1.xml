@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="week1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/week1/wordnet-submit.zip!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/week1/wordnet-testing.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
