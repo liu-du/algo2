@@ -1,6 +1,6 @@
-import edu.princeton.cs.algs4.*;
-
-import java.util.Iterator;
+import edu.princeton.cs.algs4.MinPQ;
+import edu.princeton.cs.algs4.Picture;
+import edu.princeton.cs.algs4.StdOut;
 
 public class SeamCarver {
 
@@ -74,24 +74,22 @@ public class SeamCarver {
     public int[] findVerticalSeam() {
         if (width() == 1) return new int[height()];
         double[][] energy = new double[height()][width()];
-        for (int j = 0; j < height(); j++) {
-            for (int i = 0; i < width(); i++) {
+        for (int j = 0; j < height(); j++)
+            for (int i = 0; i < width(); i++)
                 // energy[0] represent energies at the top row
                 energy[j][i] = energy(i, j);
-            }
-        }
+
         return shortestPathNew(energy);
     }
 
     public int[] findHorizontalSeam() {
         if (height() == 1) return new int[width()];
         double[][] energy = new double[width()][height()];
-        for (int i = 0; i < width(); i++) {
-            for (int j = 0; j < height(); j++) {
+        for (int i = 0; i < width(); i++)
+            for (int j = 0; j < height(); j++)
                 // transpose
                 energy[i][j] = energy(i, j);
-            }
-        }
+
         return shortestPathNew(energy);
     }
 
@@ -119,16 +117,6 @@ public class SeamCarver {
             Node node = pq.delMin();
             int y = node.y, x = node.x;
             int y_down = y + 1;
-            StdOut.print("MIN > x: " + x + "; y: " + y + "; energy: " + node.energy + "\n");
-            Iterator<Node> iter =  pq.iterator();
-            while (iter.hasNext()) {
-                Node n = iter.next();
-                StdOut.print("      x: " + n.x + "; y: " + n.y + "; energy: " + n.energy + "\n");
-            }
-            StdOut.println();
-
-
-
 
             // return if min is in the bottom row - found shortest path
             if (y == height - 1) {
@@ -140,69 +128,59 @@ public class SeamCarver {
             if (x == 0) {
                 int x_right = x + 1;
                 // the cell down below has shorter path
-                if (energy[y_down][x] <= energy[y_down][x_right]) {
-                    double new_dist = energy[y_down][x] + node.energy;
-                    if (new_dist < distTo[y_down][x]) {
-                        pq.insert(new Node(x, y_down, new_dist));
-                        distTo[y_down][x] = new_dist;
-                        edgeTo[y_down][x] = x;
-                    }
-                } else {
-                    // the cell down right is not marked and has lesser energy
-                    double new_dist = energy[y_down][x_right] + node.energy;
-                    if (new_dist < distTo[y_down][x_right]) {
-                        pq.insert(new Node(x_right, y_down, new_dist));
-                        distTo[y_down][x_right] = new_dist;
-                        edgeTo[y_down][x_right] = x;
-                    }
+                double new_dist = energy[y_down][x] + node.energy;
+                if (new_dist < distTo[y_down][x]) {
+                    pq.insert(new Node(x, y_down, new_dist));
+                    distTo[y_down][x] = new_dist;
+                    edgeTo[y_down][x] = x;
+                }
+                // the cell down right is not marked and has lesser energy
+                new_dist = energy[y_down][x_right] + node.energy;
+                if (new_dist < distTo[y_down][x_right]) {
+                    pq.insert(new Node(x_right, y_down, new_dist));
+                    distTo[y_down][x_right] = new_dist;
+                    edgeTo[y_down][x_right] = x;
                 }
             // rightmost case
             } else if (x == width - 1) {
                 int x_left = x - 1;
                 // the cell down right has shorter path
-                if (energy[y_down][x_left] <= energy[y_down][x]) {
-                    double new_dist = energy[y_down][x_left] + node.energy;
-                    if (new_dist < distTo[y_down][x_left]) {
-                        pq.insert(new Node(x_left, y_down, new_dist));
-                        distTo[y_down][x_left] = new_dist;
-                        edgeTo[y_down][x_left] = x;
-                    }
-                } else { // the cell down below has shorter path
-                    double new_dist = energy[y_down][x] + node.energy;
-                    if (new_dist < distTo[y_down][x]) {
-                        pq.insert(new Node(x, y_down, new_dist));
-                        distTo[y_down][x] = new_dist;
-                        edgeTo[y_down][x] = x;
-                    }
+                double new_dist = energy[y_down][x_left] + node.energy;
+                if (new_dist < distTo[y_down][x_left]) {
+                    pq.insert(new Node(x_left, y_down, new_dist));
+                    distTo[y_down][x_left] = new_dist;
+                    edgeTo[y_down][x_left] = x;
+                }
+                new_dist = energy[y_down][x] + node.energy;
+                if (new_dist < distTo[y_down][x]) {
+                    pq.insert(new Node(x, y_down, new_dist));
+                    distTo[y_down][x] = new_dist;
+                    edgeTo[y_down][x] = x;
                 }
             // middle case
             } else {
                 int x_left = x - 1;
                 int x_right = x + 1;
                 // the cell down left has shorter path
-                if (energy[y_down][x_left] <= energy[y_down][x] && energy[y_down][x_left] <= energy[y_down][x_right]) {
-                    double new_dist = energy[y_down][x_left] + node.energy;
-                    if (new_dist < distTo[y_down][x_left]) {
-                        pq.insert(new Node(x_left, y_down, new_dist));
-                        distTo[y_down][x_left] = new_dist;
-                        edgeTo[y_down][x_left] = x;
-                    }
-                } else if (energy[y_down][x] <= energy[y_down][x_left] && energy[y_down][x] <= energy[y_down][x_right]) {
-                    // the cell down below has shorter path
-                    double new_dist = energy[y_down][x] + node.energy;
-                    if (new_dist < distTo[y_down][x]) {
-                        pq.insert(new Node(x, y_down, new_dist));
-                        distTo[y_down][x] = new_dist;
-                        edgeTo[y_down][x] = x;
-                    }
-                } else {
-                    // the cell down right has shorter path
-                    double new_dist = energy[y_down][x_right] + node.energy;
-                    if (new_dist < distTo[y_down][x_right]) {
-                        pq.insert(new Node(x_right, y_down, new_dist));
-                        distTo[y_down][x_right] = new_dist;
-                        edgeTo[y_down][x_right] = x;
-                    }
+                double new_dist = energy[y_down][x_left] + node.energy;
+                if (new_dist < distTo[y_down][x_left]) {
+                    pq.insert(new Node(x_left, y_down, new_dist));
+                    distTo[y_down][x_left] = new_dist;
+                    edgeTo[y_down][x_left] = x;
+                }
+                // the cell down below has shorter path
+                new_dist = energy[y_down][x] + node.energy;
+                if (new_dist < distTo[y_down][x]) {
+                    pq.insert(new Node(x, y_down, new_dist));
+                    distTo[y_down][x] = new_dist;
+                    edgeTo[y_down][x] = x;
+                }
+                // the cell down right has shorter path
+                new_dist = energy[y_down][x_right] + node.energy;
+                if (new_dist < distTo[y_down][x_right]) {
+                    pq.insert(new Node(x_right, y_down, new_dist));
+                    distTo[y_down][x_right] = new_dist;
+                    edgeTo[y_down][x_right] = x;
                 }
             }
         }
@@ -332,8 +310,6 @@ public class SeamCarver {
        Picture picture = new Picture(args[0]);
        SeamCarver sc = new SeamCarver(picture);
 
-       StdOut.println(sc.width());
-       StdOut.println(sc.height());
 
 //       for (int j = 0; j < sc.height(); j++) {
 //           for (int i = 0; i < sc.width(); i++) {
@@ -351,35 +327,24 @@ public class SeamCarver {
 
 //        StdOut.println();
 //
-//        double sum = 0.0;
-//        int[] test1 = sc.findVerticalSeam();
-//
-//        for (int i = 0; i < test1.length; i++) {
-//            StdOut.print(String.format("%s ", test1[i]));
-//            sum += sc.energy(test1[i], i);
-//        }
+        double sum = 0.0;
+        int[] test1 = sc.findVerticalSeam();
 
-
-//        StdOut.println();
-//        StdOut.println(sum);
+        for (int i = 0; i < test1.length; i++) {
+            StdOut.print(String.format("%s ", test1[i]));
+            sum += sc.energy(test1[i], i);
+        }
+        StdOut.println();
+        StdOut.println(sum);
         int[] test2 = sc.findHorizontalSeam();
 
+        sum = 0d;
         for (int i = 0; i < test2.length; i++) {
             StdOut.print(String.format("%s ", test2[i]));
+            sum += sc.energy(i, test2[i]);
         }
-
         StdOut.println();
+        StdOut.println(sum);
 
-
-        double [][] en = {{1000.00, 1000.00, 1000.00, 1000.00, 1000.00},
-                          {1000.00,    3.46,    3.46,    3.32, 1000.00},
-                          {1000.00,    2.83,    4.12,    5.20, 1000.00},
-                          {1000.00,    4.00,    4.69,    3.46, 1000.00},
-                          {1000.00, 1000.00, 1000.00, 1000.00, 1000.00}};
-
-        int[] sp = sc.shortestPath(en);
-        for (int i = 0; i < sp.length; i++) {
-            StdOut.println(sp[i]);
-        }
     }
 }
