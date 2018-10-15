@@ -6,7 +6,7 @@ public class Test {
         Integer[] a = {1,2,null,3};
 
         Iterable<Integer> b = Arrays.asList(a);
-        for (int i : b) {// for (int i : b) gives NullPointerException
+        for (Integer i : b) {// for (int i : b) gives NullPointerException
             StdOut.println(i);
         }
     }
