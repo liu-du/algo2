@@ -34,9 +34,11 @@ public class BruteForceSubstringSearch {
         String txt = "fdsafsdofsajfdaoisfjadsfhahadfdsafasfdsafdsaofjsa";
 
         int i = BruteForceSubstringSearch.search(pat, txt);
+        StdOut.println(i);
         StdOut.println(txt.substring(i, i + pat.length()));
 
         int i2 = BruteForceSubstringSearch.search2(pat, txt);
+        StdOut.println(i2);
         StdOut.println(txt.substring(i2, i2 + pat.length()));
     }
 }
