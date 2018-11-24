@@ -1,8 +1,5 @@
 import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.TrieSET;
-
 import java.util.HashSet;
 
 public class BoggleSolver {
@@ -44,11 +41,13 @@ public class BoggleSolver {
             else n.next[i] = add(n.next[i], s, d + 1);
             return n;
         }
+
         private boolean contains(String s) {
             Node n = contains(root, s, 0);
             if (n == null) return false;
             return n.in;
         }
+
         private Node contains(Node n, String s, int d) {
             char c = s.charAt(d);
             int i = c - 65;
@@ -75,14 +74,14 @@ public class BoggleSolver {
         // depth first search
         for (int c = 0; c < col; c++) {
             for (int r = 0; r < row; r++) {
-                findWordWithPrefix(r, c, "", trie.root, s, marked, board);
+                findWordWithPrefix(r, c, new StringBuilder(), trie.root, s, marked, board);
                 marked[r][c] = false;
             }
         }
         return s;
     }
 
-    private void findWordWithPrefix(int r, int c, String prefix, Node n, HashSet<String> s, boolean[][] marked, BoggleBoard board) {
+    private void findWordWithPrefix(int r, int c, StringBuilder prefix, Node n, HashSet<String> s, boolean[][] marked, BoggleBoard board) {
         // mark current position
         marked[r][c] = true;
 
@@ -91,28 +90,31 @@ public class BoggleSolver {
         if (nextNode == null) return;
 
         if (ch == 'Q') {
-            if (nextNode.next['U' - 65] == null) return;
             nextNode = nextNode.next['U' - 65];
-            prefix = prefix + "QU";
-        } else { prefix = prefix + ch; }
+            if (nextNode == null) return;
+            prefix.append("QU");
+        } else { prefix.append(ch); }
 
         // add if find a match
-        if (nextNode.in && prefix.length() > 2) s.add(prefix);
+        if (nextNode.in && prefix.length() > 2) s.add(prefix.toString());
 
         // recursively search all unvisited neighbors
-        if (nextNode.hasLinks())
-            for (int rr = r - 1; rr <= r + 1; rr++)
-                for (int cc = c - 1; cc <= c + 1; cc++)
-                    if (isOnBoarad(rr, cc) && !marked[rr][cc]) {
-                        findWordWithPrefix(rr, cc, prefix, nextNode, s, marked, board);
-                        // recursive call will mark (rr,cc) as visited, unmark it once it finishes
-                        marked[rr][cc] = false;
-                    }
-    }
+        for (int rr = r - 1; rr <= r + 1; rr++) {
+            if (rr < 0 || rr >= row) continue;
+            for (int cc = c - 1; cc <= c + 1; cc++) {
+                if (cc < 0 || cc >= col) continue;
+                if (!marked[rr][cc]) {
+                    findWordWithPrefix(rr, cc, prefix, nextNode, s, marked, board);
+                    // recursive call will mark (rr,cc) as visited, unmark it once it finishes
+                    marked[rr][cc] = false;
+                }
+            }
+        }
 
-    private boolean isOnBoarad(int r, int c) {
-        if (r < 0 || r >= row || c < 0 || c >= col) return false;
-        return true;
+        // String builder is not primitive type (pass by reference) and mutable,
+        // need to remove the added character once dfs finishes
+        if (ch == 'Q') prefix.delete(prefix.length() - 2, prefix.length());
+        else prefix.deleteCharAt(prefix.length() - 1);
     }
 
     public int scoreOf(String word) {
