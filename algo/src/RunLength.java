@@ -8,15 +8,27 @@ public class RunLength {
 
     public static void compress() {
         boolean bit = false;
+        boolean run;
         char count = 0;
+
         while (!BinaryStdIn.isEmpty()) {
-            while (!BinaryStdIn.isEmpty() && bit == BinaryStdIn.readBoolean() && count < R - 1) {
-                count++;
+            run = BinaryStdIn.readBoolean();
+            if (run == bit) {
+                if (count < R) {
+                    count++;
+                } else {
+                    BinaryStdOut.write(count, lgR);
+                    BinaryStdOut.write(0, lgR);
+                    count = 1;
+                }
+            } else {
+                BinaryStdOut.write(count, lgR);
+                count = 1;
+                bit = !bit;
             }
-            BinaryStdOut.write(count);
-            bit = !bit;
-            count = 1;
         }
+
+        BinaryStdOut.write(count, lgR);
         BinaryStdOut.close();
     }
 
