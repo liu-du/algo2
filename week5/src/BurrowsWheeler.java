@@ -1,6 +1,5 @@
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
-
 import java.util.Arrays;
 
 public class BurrowsWheeler {
@@ -26,32 +25,39 @@ public class BurrowsWheeler {
         BinaryStdOut.close();
     }
 
+    private static class Comp implements Comparable<Comp> {
+        int i;
+        char ch;
+
+        public Comp (char ch, int i) {
+            this.i = i;
+            this.ch = ch;
+        }
+
+        public int compareTo(Comp that) {
+            if (this.ch < that.ch) return -1;
+            else if (this.ch > that.ch) return 1;
+            else return 0;
+        }
+    }
+
     public static void inverseTransform() {
+
         int first = BinaryStdIn.readInt();
 
         StringBuilder sb = new StringBuilder();
         while (!BinaryStdIn.isEmpty())
             sb.append(BinaryStdIn.readChar());
-        char[] t = sb.toString().toCharArray();
 
-        char[] firstCol = t.clone();
-        Arrays.sort(firstCol);
+        int N = sb.length();
+        Comp[] next = new Comp[N];
+        for (int i = 0; i < N; i++)
+            next[i] = new Comp(sb.charAt(i), i);
 
-        int[] next = new int[t.length];
-        boolean[] marked = new boolean[t.length];
+        Arrays.sort(next);
 
-        for (int i = 0; i < t.length; i++)
-            for (int j = 0; j < t.length; j++)
-                if (firstCol[i] == t[j] && !marked[j]) {
-                    next[i] = j;
-                    marked[j] = true;
-                    break;
-                }
-
-
-        for (int i = first, k = 0; k < t.length; i = next[i], k++) {
-            BinaryStdOut.write(firstCol[i], 8);
-        }
+        for (int i = first, k = 0; k < N; i = next[i].i, k++)
+            BinaryStdOut.write(next[i].ch, 8);
         BinaryStdOut.close();
     }
 
